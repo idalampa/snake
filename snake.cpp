@@ -5,10 +5,11 @@ using namespace std;
 
 bool gameOver;
 
-const int width = 20;
-const int height = 20;
+const int width = 100;
+const int height = 50;
 
-int x, y, fruitX, fruitY, score;
+int fruitX, fruitY, score;
+float x, y;
 int tailX[100], tailY[100];
 int nTail;
 enum eDirecton { STOP = 0, LEFT, RIGHT, UP, DOWN };
@@ -24,16 +25,27 @@ void Setup()
     fruitY = rand() % height;
     score = 0;
 }
+
+void clearscreen(){
+	HANDLE h0ut;
+	COORD Position;
+	
+	h0ut = GetStdHandle(STD_OUTPUT_HANDLE);
+	
+	Position.X = 0;
+	Position.Y = 0;
+	SetConsoleCursorPosition(h0ut, Position);
+}
+
 void Draw()
 {
-    system ("cls"); //system("clear");
-    for (int i = 0; i < width+2; i++)
-    cout << "#";
+//    system ("cls"); //system("clear");
+	clearscreen();
+    for (int i = 0; i < width+2; i++) cout << "#";
     cout << endl;
-
+    
     for(int i = 0; i < height; i++)
     {
-
         for(int j = 0; j < width; j++)
         {
             if (j == 0) 
@@ -110,16 +122,16 @@ void Logic()
    switch (dir)
    {
    	case LEFT:
-   		x--;
+   		x-=1;
    		break;
    	case RIGHT:
-   		x++;
+   		x+=1;
    		break;
 	case UP:
-   		y--;
+   		y-=1;
    		break;	 
 	case DOWN:
-   		y++;
+   		y+=1;
    		break;	  
 	default:
 	    break;	      	
@@ -148,10 +160,7 @@ int main(){
       Draw();
       Input();
       Logic();
-      //sleep(10); sleep(10);
+//      Sleep(10);// sleep(10);
   }
 
 return 0;
-}
-
-
